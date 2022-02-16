@@ -1,0 +1,159 @@
+<!-- main app container -->
+<div class="jumbotron">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 offset-md-2">
+                <h3>Registration Form</h3>
+                <form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate >
+                    <div class="form-group" >
+                        <label for="firstName">FirstName</label>
+                          <input type="text" data-toggle="tooltip" data-placement="top" title="Please fill First Name"  class="form-control" name="firstName" [(ngModel)]="model.firstName" #firstName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && firstName.invalid }" required minlength="6" />
+                            <div *ngIf="f.submitted && firstName.invalid" class="invalid-feedback">
+                               <div *ngIf="firstName.errors?.required">First Name is required</div>
+                            </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="lastName">LastName</label>
+                        <input type="text" data-toggle="tooltip" data-placement="top" title=" Please fill Last Name" class="form-control" name="lastName" [(ngModel)]="model.lastName" #lastName="ngModel" [ngClass]="{ 'is-invalid': f.submitted && lastName.invalid }" required />
+                        <div *ngIf="f.submitted && lastName.invalid" class="invalid-feedback">
+                            <div *ngIf="lastName.errors.required">Last Name is required</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="text" data-toggle="tooltip" data-placement="top" title="Please fill the Email" class="form-control" name="email" [(ngModel)]="model.email" #email="ngModel" [ngClass]="{ 'is-invalid': f.submitted && email.invalid }" required  />
+                        <div *ngIf="f.submitted && email.invalid" class="invalid-feedback">
+                            <div *ngIf="email.errors.required">Email is required</div>
+                            <div *ngIf="email.errors.email">Email must be a valid email address</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Password</label>
+                        <input type="password" data-toggle="tooltip" data-placement="top" title="Please fill Password" class="form-control" name="password" [(ngModel)]="model.password" #password="ngModel" [ngClass]="{ 'is-invalid': f.submitted && password.invalid }" required minlength="6"  />
+                        <div *ngIf="f.submitted && password.invalid" class="invalid-feedback">
+                            <div *ngIf="password.errors.required">Password is required</div>
+                            <div *ngIf="password.errors.minlength">Password must be at least 6 characters</div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="Confirmpassword">Confirm Password</label>
+                        <input type="current-password" class="form-control" name="Confirmpassword" [(ngModel)]="model.Confirmpassword" #Confirmpassword="ngModel" [ngClass]="{ 'is-invalid': f.submitted && Confirmpassword.invalid }" required  />
+                        <div *ngIf="f.submitted && Confirmpassword.invalid" class="invalid-feedback">
+                            <div *ngIf="Confirmpassword.errors.required">Confirm Password is required</div>
+                            <div *ngIf="Confirmpassword.errors.mustMatch">Password must match</div>
+                        </div>
+                    </div> -->
+                    <div class="form-group">
+                        <label for="tel">PhoneNo</label>
+                        <input type="tel" data-toggle="tooltip" data-placement="top" title="Please fill Phoneno" class="form-control" name="tel" [(ngModel)]="model.tel" #tel="ngModel" [ngClass]="{'is-invalid': f.submitted && tel.invalid }" pattern="^(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?$" required />
+                        <div *ngIf="f.submitted && tel.invalid" class="invalid-feedback">
+                            <div *ngIf="tel.errors.required">PhoneNO is required</div>
+                            <div *ngIf="tel.errors.minlength">PhoneNO must be at least 10 characters</div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div [innerHtml]='msg' *ngIf="msg" style="color: red;"></div>
+                        <div><img [src]="url" *ngIf="url" height="100" width="100" onclick="enlargeImg" id="img1"></div><br>
+                        <p>
+                            <input type="file" (change)="selectFile($event)">
+                        </p>
+                    </div>
+                    <div class="form-group">
+                        <button (click)=" clickAddEmployee()" data-toggle="tooltip" data-placement="top" title=" click Register" type="register" value="register" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-primary" >Register</button>
+                    </div>
+                    <!-- <div class="p-grid p-fluid">
+                        <input type="text" pInputText pTooltip="Enter your username" placeholder="Right">  
+                    </div> -->
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Employee Details</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="formvalue" class="design">
+                <div class="mb-3">
+                  <label for="exampleInputFirstName" class="form-label">FirstName</label>
+                  <input type="text" formControlName="FirstName" class="form-control" id="exampleInputFirstName" aria-describedby="FirstNameHelp" required minlength="4" />
+                </div>
+                <div class="mb-3">
+                  <label for="exampleInputLastName" class="form-label">LastName</label>
+                  <input type="text" formControlName="LastName" class="form-control" id="exampleInputLastName">
+                </div>
+                <div class="mb-3">
+                    <label for="exampleInputEmail" class="form-label">Email</label>
+                    <input type="text" formControlName="Email" class="form-control" id="exampleInputEmail">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPassword" class="form-label">Password</label>
+                    <input type="text" formControlName="Password" class="form-control" id="exampleInputPassword">
+                  </div>
+                  <div class="mb-3">
+                    <label for="exampleInputPhoneNO" class="form-label">PhoneNO</label>
+                    <input type="text" formControlName="PhoneNO" class="form-control" id="exampleInputPhoneNO">
+                  </div>
+              </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" id="cancel" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" *ngIf="showAdd" (click)="postEmployeeDetails()" class="btn btn-primary">Add</button>
+            <button type="button" *ngIf="showUpdate" (click)="updateEmployeeDetails()" class="btn btn-primary">Update</button>
+          </div>
+      </div>
+    </div>
+  </div>	
+
+
+<!-- navbar-->
+
+<nav class="navbar navbar-light bg-primary">
+    <div class="container-fluid">
+        <h1 style="color: aliceblue;">Details</h1>
+        <div class="d-flex">
+<button (click)=" clickAddEmployee()" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-success" >Add Employee</button>
+        </div>
+    </div>
+</nav>
+
+<!--table-->
+<table class="table mt-3" style="border-collapse: collapse;">
+    <thead>
+        <tr>
+            <th scope="col">Employee ID</th>
+            <th scope="col">FirstName</th>
+            <th scope="col">LastName</th>
+            <th scope="col">Email</th>
+            <th scope="col">Password</th>
+            <th scope="col">PhoneNO</th>
+            <th scope="col">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let row of employeeData">
+           <td>{{row.id}}</td>
+           <td>{{row.FirstName}}</td>
+           <td>{{row.LastName}}</td>
+           <td>{{row.Email}}</td>
+           <td>{{row.Password}}</td>
+           <td>{{row.PhoneNO}}</td>
+            <td>
+                <button (click)="onEdit(row)" style="color:aliceblue;" type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" class="btn btn-info">Edit</button>
+                <button (click)="deleteEmployee(row)" class="btn btn-danger mx-3">Delete</button>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+  
+
+

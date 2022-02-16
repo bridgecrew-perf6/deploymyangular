@@ -1,0 +1,15 @@
+{
+  "posts": [
+    {
+      "id": 1,
+      "FirstName": "fxs",
+      "Email": "x@",
+      "Password": "123456",
+      "PhoneNO": "8768"
+    }
+  ],
+  "comments": [],
+  "profile": {
+    "name": "typicode"
+  }
+}
